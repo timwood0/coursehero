@@ -25,6 +25,8 @@ type Echo struct {
 	Tag string
 }
 
+var Always string = "This URL always returns the same thing."
+
 func rejectRequest(w http.ResponseWriter) {
 	w.WriteHeader(400)
 	fmt.Fprint(w, "Error 400")
@@ -55,7 +57,7 @@ func (s String) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, s)
 }
 
-func main() {
+func ProvideListeningAddr() string {
 	addrs, err := net.InterfaceAddrs()
 
 	// Need at least two interfaces,
@@ -72,13 +74,19 @@ func main() {
 	// We will tag user output with our IP address
 	addr := addrs[1].String()
 	addr = addr[0:strings.IndexByte(addr, '/')]
+
+	return addr
+}
+
+func main() {
+	addr := ProvideListeningAddr()
 	log.Println("Listening: " + addr)
 	echo := Echo{ addr }
 
-	http.Handle("/string", String("This URL always returns the same thing."))
+	http.Handle("/string", String(Always))
 	http.Handle("/echo", &echo)
 
-	err = http.ListenAndServe(addr + ":4000", nil)
+	err := http.ListenAndServe(addr + ":4000", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
