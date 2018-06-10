@@ -1,4 +1,4 @@
-package main
+package httpd
 
 /*
 	This package implements a trivial HTTP server.
@@ -76,19 +76,5 @@ func ProvideListeningAddr() string {
 	addr = addr[0:strings.IndexByte(addr, '/')]
 
 	return addr
-}
-
-func main() {
-	addr := ProvideListeningAddr()
-	log.Println("Listening: " + addr)
-	echo := Echo{ addr }
-
-	http.Handle("/string", String(Always))
-	http.Handle("/echo", &echo)
-
-	err := http.ListenAndServe(addr + ":4000", nil)
-	if err != nil {
-		log.Fatal(err)
-	}
 }
 
