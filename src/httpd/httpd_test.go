@@ -2,13 +2,13 @@ package httpd
 
 import (
 	"os"
+	"os/exec"
 	"net/http"
 	"net/url"
 	"strings"
 	"io/ioutil"
 	"testing"
 	"log"
-	//"fmt"
 )
 
 var addr string = ProvideListeningAddr()
@@ -16,14 +16,32 @@ var errorMsg string = "Error 400"
 
 func TestMain(m *testing.M) {
 	log.Println(addr)
-	os.Exit(m.Run())
-}
+	// Start up the server
+	gopath := os.Getenv("GOPATH")
+	if gopath == "" {
+		log.Fatal("GOPATH not set in environment.")
+	}
 
-/*
-func TestHello(t *testing.T) {
-	fmt.Println("Hello")
+	httpdCmd := exec.Command(gopath + "/bin/httpd")
+	err := httpdCmd.Start()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Allow startup and run the tests
+	// XXX Uses the server already running, if any
+	// XXX Race-y approach, would rather poll the socket
+	exec.Command("sleep", "1").Run()
+	runStatus := m.Run()
+
+	// Stop the server
+	httpdCmd.Process.Kill()
+	if err != nil {
+		log.Println(err) // Warning
+	}
+
+	os.Exit(runStatus)
 }
-*/
 
 func getResponseText(resp *http.Response, t *testing.T) string {
 	body, err := ioutil.ReadAll(resp.Body)
