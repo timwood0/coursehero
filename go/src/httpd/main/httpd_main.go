@@ -6,9 +6,6 @@ import (
 	"log"
 )
 
-// XXX Fixed; prefer configuration
-var listeningPort string = "4000"
-
 func main() {
 	addr := httpd.ProvideListeningAddr()
 	log.Println("Listening: " + addr)
@@ -17,7 +14,7 @@ func main() {
 	http.Handle("/string", httpd.String(httpd.Always))
 	http.Handle("/echo", &echo)
 
-	err := http.ListenAndServe(addr + ":" + listeningPort, nil)
+	err := http.ListenAndServe(addr + ":" + httpd.ListeningPort, nil)
 	if err != nil {
 		log.Fatal(err)
 	}

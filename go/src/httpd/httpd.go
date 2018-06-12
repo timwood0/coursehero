@@ -27,6 +27,9 @@ type Echo struct {
 
 var Always string = "This URL always returns the same thing."
 
+// XXX Fixed; prefer configuration
+var ListeningPort string = "4000"
+
 func rejectRequest(w http.ResponseWriter) {
 	w.WriteHeader(400)
 	fmt.Fprint(w, "Error 400")

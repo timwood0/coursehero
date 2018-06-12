@@ -55,7 +55,7 @@ func getResponseText(resp *http.Response, t *testing.T) string {
 }
 
 func TestString(t *testing.T) {
-	resp, err := http.Get("http://" + addr + ":4000/string")
+	resp, err := http.Get("http://" + addr + ":" + ListeningPort + "/string")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -68,7 +68,7 @@ func TestString(t *testing.T) {
 }
 
 func TestStringParams(t *testing.T) {
-	resp, err := http.Get("http://" + addr + ":4000/string?param1=what&param2=who")
+	resp, err := http.Get("http://" + addr + ":" + ListeningPort + "/string?param1=what&param2=who")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -82,7 +82,7 @@ func TestStringParams(t *testing.T) {
 
 func TestEcho(t *testing.T) {
 	testMessage := "When in the course of human events"
-	resp, err := http.Get("http://" + addr + ":4000/echo?message=" + url.QueryEscape(testMessage))
+	resp, err := http.Get("http://" + addr + ":" + ListeningPort + "/echo?message=" + url.QueryEscape(testMessage))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -95,7 +95,7 @@ func TestEcho(t *testing.T) {
 }
 
 func TestEchoNoParam(t *testing.T) {
-	resp, err := http.Get("http://" + addr + ":4000/echo")
+	resp, err := http.Get("http://" + addr + ":" + ListeningPort + "/echo")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -108,7 +108,7 @@ func TestEchoNoParam(t *testing.T) {
 }
 
 func TestEchoBadParam(t *testing.T) {
-	resp, err := http.Get("http://" + addr + ":4000/echo?var=" + url.QueryEscape("An inconvenient message"))
+	resp, err := http.Get("http://" + addr + ":" + ListeningPort + "/echo?var=" + url.QueryEscape("An inconvenient message"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -122,7 +122,7 @@ func TestEchoBadParam(t *testing.T) {
 
 func TestEchoExtraParam(t *testing.T) {
 	testMessage := "When in the course of human events"
-	resp, err := http.Get("http://" + addr + ":4000/echo?other=Something&message=" + url.QueryEscape(testMessage))
+	resp, err := http.Get("http://" + addr + ":" + ListeningPort + "/echo?other=Something&message=" + url.QueryEscape(testMessage))
 	if err != nil {
 		t.Fatal(err)
 	}
