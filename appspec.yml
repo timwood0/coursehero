@@ -51,8 +51,6 @@ permissions:
 # XXX Hack around ApplicationStart bug?
   - object: go/bin/httpd
     mode: 755
-  - object: go/httpd
-    mode: 755
   - object: go
     pattern: "*.sh"
     mode: 755

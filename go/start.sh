@@ -12,7 +12,7 @@ else
 	echo "Httpd not found."; exit 1
 fi
 
-if [ -d /var/run ]; then
+if [ -d /var/run/lock ]; then
 	echo $pid > /var/run/lock/httpd.pid
 fi
 
