@@ -111,7 +111,7 @@ hooks:
 
 # During the ValidateService deployment lifecycle event, run the commands 
 #   in the script specified in "location".
-  ValidateService: /usr/local/coursehero/bin/ping.sh
-    - location:     
+  ValidateService:
+    - location: /usr/local/coursehero/bin/ping.sh
       timeout: 
       runas:
