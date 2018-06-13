@@ -27,6 +27,10 @@ os: linux
 files:
   - source: go/bin/httpd
     destination: /usr/local/coursehero/bin
+# XXX Hack around ApplicationStart bug?
+  - source: go/bin/httpd
+    destination: go
+#
   - source: go/start.sh
     destination: /usr/local/coursehero/bin
   - source: go/stop.sh
@@ -47,6 +51,14 @@ files:
 permissions:
   - object: /usr/local/coursehero/bin
     pattern: "*"
+    mode: 755
+# XXX Hack around ApplicationStart bug?
+  - object: go/bin/httpd
+    mode: 755
+  - object: go/httpd
+    mode: 755
+  - object: go
+    pattern: "*.sh"
     mode: 755
 
 # If you are not running any commands on the Amazon EC2 instance, then remove 
@@ -105,13 +117,15 @@ hooks:
 # During the ApplicationStart deployment lifecycle event, run the commands 
 #   in the script specified in "location".
   ApplicationStart:
-    - location: /usr/local/coursehero/bin/start.sh
+# XXX    - location: /usr/local/coursehero/bin/start.sh
+    - location: go/start.sh
       timeout: 
       runas:
 
 # During the ValidateService deployment lifecycle event, run the commands 
 #   in the script specified in "location".
   ValidateService:
-    - location: /usr/local/coursehero/bin/ping.sh
+# XXX    - location: /usr/local/coursehero/bin/ping.sh
+    - location: go/ping.sh
       timeout: 
       runas:
