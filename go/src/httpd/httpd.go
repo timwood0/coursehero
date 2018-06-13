@@ -27,7 +27,7 @@ type Echo struct {
 
 var Always string = "This URL always returns the same thing."
 
-// XXX Fixed; prefer configuration
+// Default; override on command line
 var ListeningPort string = "4000"
 
 func rejectRequest(w http.ResponseWriter) {
