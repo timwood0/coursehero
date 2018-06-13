@@ -27,10 +27,6 @@ os: linux
 files:
   - source: go/bin/httpd
     destination: /usr/local/coursehero/bin
-# XXX Hack around ApplicationStart bug?
-  - source: go/bin/httpd
-    destination: go
-#
   - source: go/start.sh
     destination: /usr/local/coursehero/bin
   - source: go/stop.sh
