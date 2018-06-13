@@ -90,7 +90,8 @@ hooks:
 #   in the script specified in "location" starting from the root of the 
 #   revision's file bundle.
   ApplicationStop:
-    - location: /usr/local/coursehero/bin/stop.sh
+# XXX    - location: /usr/local/coursehero/bin/stop.sh
+    - location: go/stop.sh
       timeout:
       runas:
 
