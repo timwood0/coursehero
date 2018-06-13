@@ -2,10 +2,15 @@
 # Start the Coursehero httpd.
 
 bindir=`dirname $0`
-if [ -x "$bindir/bin/httpd" ]; then
+
+# Enable starting from unpack or installed locations
+# See appspec.yml
+if [ -f "$bindir/bin/httpd" ]; then
+	chmod 755 "$bindir/bin/httpd"
 	$bindir/bin/httpd $1 &
 	pid=$!
-elif [ -x "$bindir/httpd" ]; then
+elif [ -f "$bindir/httpd" ]; then
+	chmod 755 "$bindir/httpd"
 	$bindir/httpd $1 &
 	pid=$!
 else
