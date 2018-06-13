@@ -13,7 +13,6 @@ version: 0.0
 # Specify "os: windows" if this revision targets Windows Server instances.
 # (You cannot specify both "os: linux" and "os: windows".)
 os: linux 
-# os: windows
 
 # During the Install deployment lifecycle event (which occurs between the 
 #   BeforeInstall and AfterInstall events), copy the specified files 
@@ -47,12 +46,6 @@ files:
 permissions:
   - object: /usr/local/coursehero/bin
     pattern: "*"
-    mode: 755
-# XXX Hack around ApplicationStart bug?
-  - object: go/bin/httpd
-    mode: 755
-  - object: go
-    pattern: "*.sh"
     mode: 755
 
 # If you are not running any commands on the Amazon EC2 instance, then remove 
