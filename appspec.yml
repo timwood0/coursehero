@@ -46,7 +46,7 @@ files:
 #   section may cause associated deployments to fail.
 permissions:
   - object: /usr/local/coursehero/bin
-    pattern: *
+    pattern: "*"
     mode: 755
 
 # If you are not running any commands on the Amazon EC2 instance, then remove 
@@ -79,8 +79,8 @@ hooks:
 #   revision's file bundle.
   ApplicationStop:
     - location: /usr/local/coursehero/bin/stop.sh
-	  timeout:
-	  runas:
+      timeout:
+      runas:
 
 # During the BeforeInstall deployment lifecycle event, run the commands 
 #   in the script specified in "location".
