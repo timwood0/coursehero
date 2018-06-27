@@ -25,7 +25,7 @@ type Echo struct {
 	Tag string
 }
 
-var Always string = "This URL went and returned something different."
+var Always string = "This URL always returns the same thing."
 
 // Default; override on command line
 var ListeningPort string = "4000"
