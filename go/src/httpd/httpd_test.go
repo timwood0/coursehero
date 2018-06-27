@@ -13,6 +13,7 @@ import (
 
 var addr string = ProvideListeningAddr()
 var errorMsg string = "Error 400"
+var http404 string = "404 page not found\n"
 
 func TestMain(m *testing.M) {
 	log.Println(addr)
@@ -134,3 +135,26 @@ func TestEchoExtraParam(t *testing.T) {
 	}
 }
 
+func TestMissingPath(t *testing.T) {
+	resp, err := http.Get("http://" + addr + ":" + ListeningPort)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+    bodyText := getResponseText(resp, t)
+    if strings.Compare(bodyText, http404) != 0 {
+        t.Fatal(bodyText)
+    }
+}
+
+func TestBadPath(t *testing.T) {
+	resp, err := http.Get("http://" + addr + ":" + ListeningPort + "/bad")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+    bodyText := getResponseText(resp, t)
+    if strings.Compare(bodyText, http404) != 0 {
+        t.Fatal(bodyText)
+    }
+}
